@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_postulations"
+
+            android:title="@string/postulations" />
+
+        <item
+            android:id="@+id/nav_liste_stages"
+
+            android:title="@string/liste_stages" />
+        <!--<item-->
+            <!--android:id="@+id/nav_manage_module_fragment"-->
+            <!--android:icon="@drawable/ic_marker"-->
+            <!--android:title="@string/manage_modules" />-->
+
+    </group>
+</menu>
