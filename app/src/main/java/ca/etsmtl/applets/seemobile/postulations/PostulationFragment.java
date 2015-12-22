@@ -1,18 +1,19 @@
 package ca.etsmtl.applets.seemobile.postulations;
 
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 
@@ -21,8 +22,10 @@ import ca.etsmtl.applets.seemobile.model.Postulation;
  */
 public class PostulationFragment extends Fragment implements PostulationView, AdapterView.OnItemClickListener {
 
-    private ListView listView;
-    private ProgressBar progressBar;
+    @Bind(R.id.listview_postulations)
+    ListView listView;
+    @Bind(R.id.progressbar)
+    ProgressBar progressBar;
     private PostulationPresenter presenter;
     private PostulationAdapter adapter;
 
@@ -32,8 +35,7 @@ public class PostulationFragment extends Fragment implements PostulationView, Ad
 
         View view = inflater.inflate(R.layout.fragment_postulation, container, false);
 
-        listView = (ListView) view.findViewById(R.id.listview_postulations);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+        ButterKnife.bind(this, view);
         presenter = new PostulationPresenter(this);
 
         listView.setOnItemClickListener(this);

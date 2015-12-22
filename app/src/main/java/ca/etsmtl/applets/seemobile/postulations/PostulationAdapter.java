@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 
@@ -34,11 +36,7 @@ public class PostulationAdapter extends ArrayAdapter<Postulation> {
         } else {
             LayoutInflater inflater = LayoutInflater.from(context);
             view = inflater.inflate(R.layout.row_postulation, parent, false);
-            holder = new ViewHolder();
-            holder.tvCompanyName = (TextView) view.findViewById(R.id.tv_company_name);
-            holder.tvJobTitle = (TextView) view.findViewById(R.id.tv_job_title);
-            holder.tvStatus = (TextView) view.findViewById(R.id.tv_status);
-
+            holder = new ViewHolder(view);
             view.setTag(holder);
         }
         Postulation item = getItem(position);
@@ -51,8 +49,17 @@ public class PostulationAdapter extends ArrayAdapter<Postulation> {
     }
 
     static class ViewHolder {
+
+        @Bind(R.id.tv_company_name)
         TextView tvCompanyName;
+        @Bind(R.id.tv_job_title)
         TextView tvJobTitle;
+        @Bind(R.id.tv_status)
         TextView tvStatus;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+
     }
 }
