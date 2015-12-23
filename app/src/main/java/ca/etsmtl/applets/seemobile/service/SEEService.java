@@ -11,6 +11,10 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import retrofit.GsonConverterFactory;
@@ -24,6 +28,9 @@ import rx.Observable;
  */
 public class SEEService {
 
+    // Purée, je vais t'en mettre une injection !!!
+    @Inject @Named("retrofit") Retrofit client;
+
     private SEEApi mSEEApi;
 
     String baseUrl;
@@ -33,33 +40,8 @@ public class SEEService {
         //TODO use string from xml
         baseUrl = "http://dummy-api-stages.herokuapp.com";
 
-        Interceptor interceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request.Builder builder = chain.request().newBuilder();
-                Request request = builder.addHeader("Accept", "application/json")
-                        .build();
-
-                return chain.proceed(request);
-            }
-        };
-
-        OkHttpClient okClient = new OkHttpClient();
-        okClient.interceptors().add(interceptor);
-
-
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(new TypeToken<List<Postulation>>() {
-                }.getType(), new PostulationsDeserializer())
-                .registerTypeAdapter(Poste.class, new PosteDeserializer())
-                .create();
-
-        Retrofit client = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .client(okClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
+        // Injection let's do it!!!!!!
+        Injector.INSTANCE.getServiceComponent().inject(this);
 
         mSEEApi = client.create(SEEApi.class);
 

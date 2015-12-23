@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.R;
@@ -27,7 +29,7 @@ public class PostulationFragment extends Fragment implements PostulationView, Ad
     @Bind(R.id.progressbar)
     ProgressBar progressBar;
 
-    private PostulationPresenter presenter;
+    PostulationPresenter presenter;
     private PostulationAdapter adapter;
 
     @Override

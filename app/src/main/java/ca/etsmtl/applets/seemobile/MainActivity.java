@@ -1,5 +1,6 @@
 package ca.etsmtl.applets.seemobile;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,12 +12,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.postulations.PostulationFragment;
 import ca.etsmtl.applets.seemobile.stages.StagesFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    @Inject MyApp myApp;
+
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -28,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);

@@ -2,6 +2,8 @@ package ca.etsmtl.applets.seemobile.postulations;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ca.etsmtl.applets.seemobile.model.Postulation;
 
 /**
@@ -10,7 +12,8 @@ import ca.etsmtl.applets.seemobile.model.Postulation;
 public class PostulationPresenter implements IPostulationPresenter, OnFinishedListener {
 
     private PostulationView postulationView;
-    private FindPostulationsInteractor findPostulationsInteractor;
+
+    @Inject FindPostulationsInteractor findPostulationsInteractor;
 
     public PostulationPresenter(PostulationView postulationView) {
         this.postulationView = postulationView;
