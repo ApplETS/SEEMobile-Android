@@ -3,6 +3,9 @@ package ca.etsmtl.applets.seemobile.postulations;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.service.SEEService;
 import rx.Observer;
@@ -14,11 +17,16 @@ import rx.schedulers.Schedulers;
  */
 public class FindPostulationsInteractor implements IFindPostulationsInteractor {
 
+    @Inject SEEService seeService;
+
+    public FindPostulationsInteractor() {
+        Injector.INSTANCE.getServiceComponent().inject(this);
+    }
 
     @Override
     public void findPostulations(final OnFinishedListener listener) {
 
-        SEEService seeService = new SEEService();
+//        SEEService seeService = new SEEService();
 
         seeService.getApi()
                 .getPostulations()

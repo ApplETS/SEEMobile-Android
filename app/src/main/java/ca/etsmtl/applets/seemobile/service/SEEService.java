@@ -28,19 +28,13 @@ import rx.Observable;
  */
 public class SEEService {
 
-    // Purée, je vais t'en mettre une injection !!!
     @Inject @Named("retrofit") Retrofit client;
 
     private SEEApi mSEEApi;
 
-    String baseUrl;
 
     public SEEService() {
 
-        //TODO use string from xml
-        baseUrl = "http://dummy-api-stages.herokuapp.com";
-
-        // Injection let's do it!!!!!!
         Injector.INSTANCE.getServiceComponent().inject(this);
 
         mSEEApi = client.create(SEEApi.class);

@@ -4,6 +4,8 @@ import javax.inject.Singleton;
 
 import ca.etsmtl.applets.seemobile.AppModule;
 import ca.etsmtl.applets.seemobile.MainActivity;
+import ca.etsmtl.applets.seemobile.postulations.FindPostulationsInteractor;
+import ca.etsmtl.applets.seemobile.postulations.IFindPostulationsInteractor;
 import ca.etsmtl.applets.seemobile.postulations.PostulationFragment;
 import dagger.Component;
 
@@ -15,6 +17,6 @@ import dagger.Component;
 @Singleton
 @Component(modules={AppModule.class, ServiceModule.class})
 public interface ServiceComponent {
-    // Injecte moi ça dans ta face
-    void inject(SEEService fragment);
+    void inject(SEEService seeService);
+    void inject(FindPostulationsInteractor interactor);
 }

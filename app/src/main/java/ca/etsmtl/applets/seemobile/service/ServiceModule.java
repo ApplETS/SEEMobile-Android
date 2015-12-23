@@ -102,13 +102,18 @@ public class ServiceModule {
     @Singleton
     Retrofit provideRetrofit(@Named("gsonbuilder") Gson gson, @Named("okhttpclient") OkHttpClient okHttpClient) {
 
-        Retrofit client = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-
-        return client;
     }
+
+    @Provides
+    @Singleton
+    SEEService provideSEEService() {
+        return new SEEService();
+    }
+
 }

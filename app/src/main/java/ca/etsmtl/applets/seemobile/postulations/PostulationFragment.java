@@ -45,8 +45,6 @@ public class PostulationFragment extends Fragment implements PostulationView, Ad
 
 
         return view;
-
-
     }
 
     @Override
@@ -82,6 +80,5 @@ public class PostulationFragment extends Fragment implements PostulationView, Ad
     @Override
     public void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-        ;
     }
 }

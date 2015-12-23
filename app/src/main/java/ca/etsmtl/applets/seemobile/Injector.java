@@ -22,11 +22,10 @@ public enum Injector {
     }
 
     void initializeServiceComponent(Application application) {
-        ServiceComponent serviceComponent = DaggerServiceComponent.builder()
+        this.serviceComponent = DaggerServiceComponent.builder()
                 .appModule(new AppModule(application))
                 .serviceModule(new ServiceModule("http://dummy-api-stages.herokuapp.com"))
                 .build();
-        this.serviceComponent = serviceComponent;
     }
 
     public ServiceComponent getServiceComponent() {
