@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     @Bind(R.id.nvView)
     NavigationView navigationView;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

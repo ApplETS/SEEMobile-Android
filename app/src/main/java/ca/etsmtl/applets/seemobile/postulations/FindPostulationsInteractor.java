@@ -1,12 +1,13 @@
 package ca.etsmtl.applets.seemobile.postulations;
 
-import android.os.Handler;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.service.SEEService;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by gnut3ll4 on 20/12/15.
@@ -16,15 +17,35 @@ public class FindPostulationsInteractor implements IFindPostulationsInteractor {
 
     @Override
     public void findPostulations(final OnFinishedListener listener) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                listener.onFinished(createPostulationList());
-            }
-        }, 2000);
+
+        SEEService seeService = new SEEService();
+
+        seeService.getApi()
+                .getPostulations()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Postulation>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Postulation> postulations) {
+
+                        listener.onFinished(postulations);
+                    }
+                });
+
     }
 
     private List<Postulation> createPostulationList() {
+
         ArrayList<Postulation> postulations = new ArrayList<>();
 
         postulations.add(

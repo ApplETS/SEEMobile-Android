@@ -26,6 +26,7 @@ public class PostulationFragment extends Fragment implements PostulationView, Ad
     ListView listView;
     @Bind(R.id.progressbar)
     ProgressBar progressBar;
+
     private PostulationPresenter presenter;
     private PostulationAdapter adapter;
 
