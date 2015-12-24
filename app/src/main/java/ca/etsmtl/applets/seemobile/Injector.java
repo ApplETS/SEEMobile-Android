@@ -2,6 +2,9 @@ package ca.etsmtl.applets.seemobile;
 
 import android.app.Application;
 
+import ca.etsmtl.applets.seemobile.component.ServiceComponent;
+import ca.etsmtl.applets.seemobile.module.AppModule;
+import ca.etsmtl.applets.seemobile.module.ServiceModule;
 import ca.etsmtl.applets.seemobile.service.*;
 
 /**

@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.postulations;
+package ca.etsmtl.applets.seemobile.ui.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,12 +12,13 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.ui.PostulationView;
+import ca.etsmtl.applets.seemobile.presenter.PostulationPresenter;
+import ca.etsmtl.applets.seemobile.ui.adapter.PostulationAdapter;
 
 /**
  * A placeholder fragment containing a simple view.

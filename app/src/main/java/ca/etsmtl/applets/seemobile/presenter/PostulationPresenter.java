@@ -1,10 +1,13 @@
-package ca.etsmtl.applets.seemobile.postulations;
+package ca.etsmtl.applets.seemobile.presenter;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.interactor.FindPostulationsInteractor;
+import ca.etsmtl.applets.seemobile.utils.OnFinishedListener;
+import ca.etsmtl.applets.seemobile.ui.PostulationView;
 
 /**
  * Created by gnut3ll4 on 20/12/15.
@@ -13,7 +16,8 @@ public class PostulationPresenter implements IPostulationPresenter, OnFinishedLi
 
     private PostulationView postulationView;
 
-    @Inject FindPostulationsInteractor findPostulationsInteractor;
+    @Inject
+    FindPostulationsInteractor findPostulationsInteractor;
 
     public PostulationPresenter(PostulationView postulationView) {
         this.postulationView = postulationView;

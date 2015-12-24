@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile;
+package ca.etsmtl.applets.seemobile.ui.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,12 +16,15 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import ca.etsmtl.applets.seemobile.postulations.PostulationFragment;
-import ca.etsmtl.applets.seemobile.stages.StagesFragment;
+import ca.etsmtl.applets.seemobile.SEEApplication;
+import ca.etsmtl.applets.seemobile.R;
+import ca.etsmtl.applets.seemobile.ui.fragment.PostulationFragment;
+import ca.etsmtl.applets.seemobile.ui.fragment.StagesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Inject MyApp myApp;
+    @Inject
+    SEEApplication seeApplication;
 
     @Inject
     SharedPreferences sharedPreferences;

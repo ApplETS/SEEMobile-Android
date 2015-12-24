@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.service;
+package ca.etsmtl.applets.seemobile.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
@@ -15,7 +15,7 @@ import ca.etsmtl.applets.seemobile.model.Postulation;
 /**
  * Created by gnut3ll4 on 22/12/15.
  */
-class PosteDeserializer implements JsonDeserializer<Poste> {
+public class PosteDeserializer implements JsonDeserializer<Poste> {
     @Override
     public Poste deserialize(JsonElement je, Type type, JsonDeserializationContext jdc)
             throws JsonParseException {

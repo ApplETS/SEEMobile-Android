@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.postulations;
+package ca.etsmtl.applets.seemobile.utils;
 
 import java.util.List;
 

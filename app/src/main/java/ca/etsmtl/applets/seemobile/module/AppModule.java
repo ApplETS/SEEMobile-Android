@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile;
+package ca.etsmtl.applets.seemobile.module;
 
 import android.app.Application;
 

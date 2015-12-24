@@ -1,10 +1,9 @@
-package ca.etsmtl.applets.seemobile.service;
+package ca.etsmtl.applets.seemobile.module;
 
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -17,14 +16,14 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
-import ca.etsmtl.applets.seemobile.service.PosteDeserializer;
-import ca.etsmtl.applets.seemobile.service.PostulationsDeserializer;
+import ca.etsmtl.applets.seemobile.service.SEEService;
+import ca.etsmtl.applets.seemobile.utils.PosteDeserializer;
+import ca.etsmtl.applets.seemobile.utils.PostulationsDeserializer;
 import dagger.Module;
 import dagger.Provides;
 import retrofit.GsonConverterFactory;
@@ -64,7 +63,7 @@ public class ServiceModule {
     @Provides
     @Named("gsonbuilder")
     @Singleton
-    Gson  provideGson() {
+    Gson provideGson() {
 
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .registerTypeAdapter(new TypeToken<List<Postulation>>() {
@@ -74,27 +73,27 @@ public class ServiceModule {
         return gsonBuilder.create();
     }
 
-     @Provides
-     @Named("okhttpclient")
-     @Singleton
-     OkHttpClient provideOkHttpClient(@Named("Cache") Cache cache) {
-         OkHttpClient client = new OkHttpClient();
-         client.setCache(cache);
+    @Provides
+    @Named("okhttpclient")
+    @Singleton
+    OkHttpClient provideOkHttpClient(@Named("Cache") Cache cache) {
+        OkHttpClient client = new OkHttpClient();
+        client.setCache(cache);
 
-         Interceptor interceptor = new Interceptor() {
-             @Override
-             public Response intercept(Chain chain) throws IOException {
-                 Request.Builder builder = chain.request().newBuilder();
-                 Request request = builder.addHeader("Accept", "application/json")
-                         .build();
+        Interceptor interceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request.Builder builder = chain.request().newBuilder();
+                Request request = builder.addHeader("Accept", "application/json")
+                        .build();
 
-                 return chain.proceed(request);
-             }
-         };
+                return chain.proceed(request);
+            }
+        };
 
-         client.interceptors().add(interceptor);
+        client.interceptors().add(interceptor);
 
-         return client;
+        return client;
     }
 
     @Provides

@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.postulations;
+package ca.etsmtl.applets.seemobile.interactor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.utils.OnFinishedListener;
 import ca.etsmtl.applets.seemobile.service.SEEService;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;

@@ -1,4 +1,6 @@
-package ca.etsmtl.applets.seemobile.postulations;
+package ca.etsmtl.applets.seemobile.interactor;
+
+import ca.etsmtl.applets.seemobile.utils.OnFinishedListener;
 
 /**
  * Created by gnut3ll4 on 20/12/15.

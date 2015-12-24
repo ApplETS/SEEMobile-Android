@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.postulations;
+package ca.etsmtl.applets.seemobile.presenter;
 
 /**
  * Created by gnut3ll4 on 20/12/15.
