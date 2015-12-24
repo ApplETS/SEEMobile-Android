@@ -2,6 +2,7 @@ package ca.etsmtl.applets.seemobile.component;
 
 import javax.inject.Singleton;
 
+import ca.etsmtl.applets.seemobile.SEEApplication;
 import ca.etsmtl.applets.seemobile.module.AppModule;
 import ca.etsmtl.applets.seemobile.module.ServiceModule;
 import ca.etsmtl.applets.seemobile.presenter.PostulationPresenter;
@@ -16,5 +17,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, ServiceModule.class})
 public interface ServiceComponent {
+    void inject(SEEApplication application);
     void inject(PostulationPresenter presenter);
 }

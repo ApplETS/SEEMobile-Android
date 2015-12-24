@@ -14,12 +14,14 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Singleton;
 
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
 import ca.etsmtl.applets.seemobile.service.SEEService;
 import ca.etsmtl.applets.seemobile.utils.PosteDeserializer;
 import ca.etsmtl.applets.seemobile.utils.PostulationsDeserializer;
@@ -108,6 +110,18 @@ public class ServiceModule {
     @Singleton
     SEEService provideSEEService(Retrofit client) {
         return new SEEService(client);
+    }
+
+    @Provides
+    @Singleton
+    DatabaseHelper provideDatabaseHelper(Application application) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(application);
+        try {
+            databaseHelper.getDao(Postulation.class).queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return databaseHelper;
     }
 
 }

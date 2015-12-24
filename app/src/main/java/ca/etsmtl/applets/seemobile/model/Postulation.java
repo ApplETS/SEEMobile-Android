@@ -1,17 +1,33 @@
 package ca.etsmtl.applets.seemobile.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by gnut3ll4 on 21/12/15.
  */
+@DatabaseTable(tableName = "postulation")
 public class Postulation {
 
-
+    @DatabaseField(id = true)
     private String guidPoste;
+
+    @DatabaseField
     private String typePlacement;
+
+    @DatabaseField
     private String numeroPoste;
+
+    @DatabaseField
     private String nomPoste;
+
+    @DatabaseField
     private String nomEmployeur;
+
+    @DatabaseField
     private String statut;
+
+    @DatabaseField
     private boolean active;
 
     public Postulation() {
