@@ -26,9 +26,12 @@ public enum Injector {
     }
 
     void initializeServiceComponent(Application application) {
+
+        String seeApiBaseUrl = application.getString(R.string.see_api_base_url);
+
         this.serviceComponent = DaggerServiceComponent.builder()
                 .appModule(new AppModule(application))
-                .serviceModule(new ServiceModule("http://dummy-api-stages.herokuapp.com"))
+                .serviceModule(new ServiceModule(seeApiBaseUrl))
                 .build();
     }
 

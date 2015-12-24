@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="see_api_base_url">http://dummy-api-stages.herokuapp.com</string>
+</resources>
