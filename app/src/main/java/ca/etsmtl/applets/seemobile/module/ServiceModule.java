@@ -16,7 +16,6 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.util.List;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import ca.etsmtl.applets.seemobile.model.Poste;
@@ -52,7 +51,6 @@ public class ServiceModule {
     }
 
     @Provides
-    @Named("Cache")
     @Singleton
     Cache provideOkHttpCache(Application application) {
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
@@ -61,7 +59,6 @@ public class ServiceModule {
     }
 
     @Provides
-    @Named("gsonbuilder")
     @Singleton
     Gson provideGson() {
 
@@ -74,9 +71,8 @@ public class ServiceModule {
     }
 
     @Provides
-    @Named("okhttpclient")
     @Singleton
-    OkHttpClient provideOkHttpClient(@Named("Cache") Cache cache) {
+    OkHttpClient provideOkHttpClient(Cache cache) {
         OkHttpClient client = new OkHttpClient();
         client.setCache(cache);
 
@@ -97,9 +93,8 @@ public class ServiceModule {
     }
 
     @Provides
-    @Named("retrofit")
     @Singleton
-    Retrofit provideRetrofit(@Named("gsonbuilder") Gson gson, @Named("okhttpclient") OkHttpClient okHttpClient) {
+    Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
 
         return new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
@@ -111,8 +106,8 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    SEEService provideSEEService() {
-        return new SEEService();
+    SEEService provideSEEService(Retrofit client) {
+        return new SEEService(client);
     }
 
 }

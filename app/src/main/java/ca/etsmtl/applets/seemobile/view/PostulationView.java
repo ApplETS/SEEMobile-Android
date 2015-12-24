@@ -9,11 +9,11 @@ import ca.etsmtl.applets.seemobile.model.Postulation;
  */
 public interface PostulationView {
 
-    public void showProgress();
+    void showProgress();
 
-    public void hideProgress();
+    void hideProgress();
 
-    public void setItems(List<Postulation> postulations);
+    void setItems(List<Postulation> postulations);
 
-    public void showMessage(String message);
+    void showMessage(String message);
 }

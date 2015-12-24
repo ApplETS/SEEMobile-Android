@@ -16,7 +16,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, ServiceModule.class})
 public interface ServiceComponent {
-    void inject(SEEService seeService);
-
     void inject(PostulationPresenter presenter);
 }

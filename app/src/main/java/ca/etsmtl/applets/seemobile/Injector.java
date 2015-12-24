@@ -22,7 +22,7 @@ public enum Injector {
 
     ServiceComponent serviceComponent;
 
-    private Injector(){
+    Injector(){
     }
 
     void initializeServiceComponent(Application application) {

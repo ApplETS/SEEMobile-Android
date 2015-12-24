@@ -2,10 +2,6 @@ package ca.etsmtl.applets.seemobile.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import retrofit.Retrofit;
@@ -17,16 +13,9 @@ import rx.Observable;
  */
 public class SEEService {
 
-    @Inject
-    @Named("retrofit")
-    Retrofit client;
-
     private SEEApi mSEEApi;
 
-
-    public SEEService() {
-
-        Injector.INSTANCE.getServiceComponent().inject(this);
+    public SEEService(Retrofit client) {
 
         mSEEApi = client.create(SEEApi.class);
 
