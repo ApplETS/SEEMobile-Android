@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.ui.adapter;
+package ca.etsmtl.applets.seemobile.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

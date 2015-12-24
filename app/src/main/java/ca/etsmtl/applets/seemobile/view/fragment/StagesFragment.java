@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.ui.fragment;
+package ca.etsmtl.applets.seemobile.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

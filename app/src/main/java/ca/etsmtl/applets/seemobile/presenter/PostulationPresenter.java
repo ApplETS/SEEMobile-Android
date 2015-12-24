@@ -4,37 +4,60 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.model.Postulation;
-import ca.etsmtl.applets.seemobile.interactor.FindPostulationsInteractor;
-import ca.etsmtl.applets.seemobile.utils.OnFinishedListener;
-import ca.etsmtl.applets.seemobile.ui.PostulationView;
+import ca.etsmtl.applets.seemobile.service.SEEService;
+import ca.etsmtl.applets.seemobile.view.PostulationView;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by gnut3ll4 on 20/12/15.
  */
-public class PostulationPresenter implements IPostulationPresenter, OnFinishedListener {
+public class PostulationPresenter implements IPostulationPresenter {
 
     private PostulationView postulationView;
 
     @Inject
-    FindPostulationsInteractor findPostulationsInteractor;
+    SEEService seeService;
 
     public PostulationPresenter(PostulationView postulationView) {
         this.postulationView = postulationView;
-        findPostulationsInteractor = new FindPostulationsInteractor();
+        Injector.INSTANCE.getServiceComponent().inject(this);
     }
 
-    @Override public void onResume() {
+    @Override
+    public void onResume() {
         postulationView.showProgress();
-        findPostulationsInteractor.findPostulations(this);
+
+        seeService.getApi()
+                .getPostulations()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Postulation>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Postulation> postulations) {
+                        postulationView.setItems(postulations);
+                        postulationView.hideProgress();
+                    }
+                });
+
     }
 
-    @Override public void onItemClicked(int position) {
+    @Override
+    public void onItemClicked(int position) {
         postulationView.showMessage(String.format("Position %d clicked", position + 1));
     }
 
-    @Override public void onFinished(List<Postulation> postulations) {
-        postulationView.setItems(postulations);
-        postulationView.hideProgress();
-    }
 }

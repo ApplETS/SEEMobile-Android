@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.ui.fragment;
+package ca.etsmtl.applets.seemobile.view.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -16,9 +16,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Postulation;
-import ca.etsmtl.applets.seemobile.ui.PostulationView;
+import ca.etsmtl.applets.seemobile.view.PostulationView;
 import ca.etsmtl.applets.seemobile.presenter.PostulationPresenter;
-import ca.etsmtl.applets.seemobile.ui.adapter.PostulationAdapter;
+import ca.etsmtl.applets.seemobile.view.adapter.PostulationAdapter;
 
 /**
  * A placeholder fragment containing a simple view.

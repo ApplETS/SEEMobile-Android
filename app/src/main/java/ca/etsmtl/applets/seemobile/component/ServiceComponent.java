@@ -3,8 +3,8 @@ package ca.etsmtl.applets.seemobile.component;
 import javax.inject.Singleton;
 
 import ca.etsmtl.applets.seemobile.module.AppModule;
-import ca.etsmtl.applets.seemobile.interactor.FindPostulationsInteractor;
 import ca.etsmtl.applets.seemobile.module.ServiceModule;
+import ca.etsmtl.applets.seemobile.presenter.PostulationPresenter;
 import ca.etsmtl.applets.seemobile.service.SEEService;
 import dagger.Component;
 
@@ -14,8 +14,9 @@ import dagger.Component;
 
 
 @Singleton
-@Component(modules={AppModule.class, ServiceModule.class})
+@Component(modules = {AppModule.class, ServiceModule.class})
 public interface ServiceComponent {
     void inject(SEEService seeService);
-    void inject(FindPostulationsInteractor interactor);
+
+    void inject(PostulationPresenter presenter);
 }

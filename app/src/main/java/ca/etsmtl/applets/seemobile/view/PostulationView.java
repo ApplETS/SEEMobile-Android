@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.ui;
+package ca.etsmtl.applets.seemobile.view;
 
 import java.util.List;
 

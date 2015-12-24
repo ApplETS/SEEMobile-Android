@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.ui.activity;
+package ca.etsmtl.applets.seemobile.view.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,8 +18,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.SEEApplication;
 import ca.etsmtl.applets.seemobile.R;
-import ca.etsmtl.applets.seemobile.ui.fragment.PostulationFragment;
-import ca.etsmtl.applets.seemobile.ui.fragment.StagesFragment;
+import ca.etsmtl.applets.seemobile.view.fragment.PostulationFragment;
+import ca.etsmtl.applets.seemobile.view.fragment.StagesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
