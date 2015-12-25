@@ -25,6 +25,7 @@ import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
 import ca.etsmtl.applets.seemobile.service.SEEService;
 import ca.etsmtl.applets.seemobile.utils.PosteDeserializer;
 import ca.etsmtl.applets.seemobile.utils.PostulationsDeserializer;
+import ca.etsmtl.applets.seemobile.utils.Synchronizer;
 import dagger.Module;
 import dagger.Provides;
 import retrofit.GsonConverterFactory;

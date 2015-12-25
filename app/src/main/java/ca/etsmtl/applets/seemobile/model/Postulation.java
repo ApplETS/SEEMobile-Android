@@ -98,4 +98,12 @@ public class Postulation {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o != null && o instanceof Postulation) {
+            return ((Postulation) o).getGuidPoste().equals(this.getGuidPoste());
+        }
+        return false;
+    }
 }
