@@ -1,5 +1,7 @@
 package ca.etsmtl.applets.seemobile.view.activity;
 
+import android.app.Application;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,6 +18,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.SEEApplication;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.view.fragment.PostulationFragment;
@@ -24,7 +27,7 @@ import ca.etsmtl.applets.seemobile.view.fragment.StagesFragment;
 public class MainActivity extends AppCompatActivity {
 
     @Inject
-    SEEApplication seeApplication;
+    Application application;
 
     @Inject
     SharedPreferences sharedPreferences;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        Injector.INSTANCE.getServiceComponent().inject(this);
 
         setSupportActionBar(toolbar);
         setupDrawerContent(navigationView);
@@ -125,5 +129,13 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.closeDrawers();
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn",false);
+        if(!isLoggedIn) {
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivityForResult(i, 1);
+        }
+    }
 }
