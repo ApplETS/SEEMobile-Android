@@ -90,7 +90,9 @@ public class ServiceModule {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request.Builder builder = chain.request().newBuilder();
-                Request request = builder.addHeader("Accept", "application/json")
+                Request request = builder
+                        .addHeader("Accept", "application/json")
+                        .addHeader("User-Agent", "applETS")
                         .build();
 
                 return chain.proceed(request);
