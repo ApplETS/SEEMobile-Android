@@ -1,10 +1,15 @@
 package ca.etsmtl.applets.seemobile.service;
 
+import com.squareup.okhttp.ResponseBody;
+
 import java.util.List;
 
+import ca.etsmtl.applets.seemobile.model.Credentials;
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
+import retrofit.Response;
 import retrofit.Retrofit;
+import retrofit.http.Body;
 import retrofit.http.POST;
 import rx.Observable;
 
@@ -29,13 +34,14 @@ public class SEEService {
 
     public interface SEEApi {
 
-        @POST("/obtenirPoste")
-        public Observable<Poste>
-        getPoste();
+        @POST("/Services/SEEMobile/SEEMobile.svc/authentifierEtudiant")
+        Observable<Response<ResponseBody>> authenticate(@Body Credentials credentials);
 
-        @POST("/obtenirPostulations")
-        public Observable<List<Postulation>>
-        getPostulations();
+        @POST("/Services/SEEMobile/SEEMobile.svc/obtenirPoste")
+        Observable<Poste> getPoste();
+
+        @POST("/Services/SEEMobile/SEEMobile.svc/obtenirPostulations")
+        Observable<List<Postulation>> getPostulations();
     }
 
 }

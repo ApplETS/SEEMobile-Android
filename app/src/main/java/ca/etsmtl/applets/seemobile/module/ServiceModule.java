@@ -26,7 +26,6 @@ import ca.etsmtl.applets.seemobile.service.SEEService;
 import ca.etsmtl.applets.seemobile.utils.AuthenticationInterceptor;
 import ca.etsmtl.applets.seemobile.utils.PosteDeserializer;
 import ca.etsmtl.applets.seemobile.utils.PostulationsDeserializer;
-import ca.etsmtl.applets.seemobile.utils.Synchronizer;
 import dagger.Module;
 import dagger.Provides;
 import retrofit.GsonConverterFactory;
@@ -93,6 +92,8 @@ public class ServiceModule {
                 Request request = builder
                         .addHeader("Accept", "application/json")
                         .addHeader("User-Agent", "applETS")
+                        .addHeader("Content-Type", "application/json")
+                        .addHeader("Accept-Charset", "UTF-8")
                         .build();
 
                 return chain.proceed(request);
@@ -101,6 +102,11 @@ public class ServiceModule {
 
         client.interceptors().add(interceptor);
         client.interceptors().add(authenticationInterceptor);
+
+        //TODO REMOVE LOG
+//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        client.interceptors().add(loggingInterceptor);
 
         return client;
     }
