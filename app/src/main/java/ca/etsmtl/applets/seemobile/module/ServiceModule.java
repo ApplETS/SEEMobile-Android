@@ -23,6 +23,7 @@ import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
 import ca.etsmtl.applets.seemobile.service.SEEService;
+import ca.etsmtl.applets.seemobile.utils.AuthenticationInterceptor;
 import ca.etsmtl.applets.seemobile.utils.PosteDeserializer;
 import ca.etsmtl.applets.seemobile.utils.PostulationsDeserializer;
 import ca.etsmtl.applets.seemobile.utils.Synchronizer;
@@ -75,7 +76,13 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(Cache cache) {
+    AuthenticationInterceptor provideAuthenticationInterceptor() {
+        return new AuthenticationInterceptor();
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient(Cache cache, AuthenticationInterceptor authenticationInterceptor) {
         OkHttpClient client = new OkHttpClient();
         client.setCache(cache);
 
@@ -91,6 +98,7 @@ public class ServiceModule {
         };
 
         client.interceptors().add(interceptor);
+        client.interceptors().add(authenticationInterceptor);
 
         return client;
     }
