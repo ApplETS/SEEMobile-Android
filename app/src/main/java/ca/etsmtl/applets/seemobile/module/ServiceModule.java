@@ -1,5 +1,6 @@
 package ca.etsmtl.applets.seemobile.module;
 
+import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,6 +13,7 @@ import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -75,8 +77,8 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    AuthenticationInterceptor provideAuthenticationInterceptor() {
-        return new AuthenticationInterceptor();
+    AuthenticationInterceptor provideAuthenticationInterceptor(AccountManager accountManager) {
+        return new AuthenticationInterceptor(accountManager);
     }
 
     @Provides
@@ -104,9 +106,9 @@ public class ServiceModule {
         client.interceptors().add(authenticationInterceptor);
 
         //TODO REMOVE LOG
-//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//        client.interceptors().add(loggingInterceptor);
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        client.interceptors().add(loggingInterceptor);
 
         return client;
     }

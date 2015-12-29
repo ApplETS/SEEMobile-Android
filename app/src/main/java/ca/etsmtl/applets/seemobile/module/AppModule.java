@@ -1,5 +1,6 @@
 package ca.etsmtl.applets.seemobile.module;
 
+import android.accounts.AccountManager;
 import android.app.Application;
 
 import javax.inject.Singleton;
@@ -23,5 +24,11 @@ public class AppModule {
     @Singleton
     Application providesApplication() {
         return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    AccountManager providesAccountManager(Application application) {
+        return AccountManager.get(application);
     }
 }

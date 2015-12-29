@@ -10,14 +10,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Postulation;
-import ca.etsmtl.applets.seemobile.view.PostulationView;
 import ca.etsmtl.applets.seemobile.presenter.PostulationPresenter;
+import ca.etsmtl.applets.seemobile.view.PostulationView;
 import ca.etsmtl.applets.seemobile.view.adapter.PostulationAdapter;
 
 /**
@@ -40,6 +41,8 @@ public class PostulationFragment extends Fragment implements PostulationView, Ad
         View view = inflater.inflate(R.layout.fragment_postulation, container, false);
 
         ButterKnife.bind(this, view);
+        adapter = new PostulationAdapter(getActivity(), R.layout.row_postulation, new ArrayList<>());
+        listView.setAdapter(adapter);
         presenter = new PostulationPresenter(this);
 
         listView.setOnItemClickListener(this);
@@ -62,19 +65,21 @@ public class PostulationFragment extends Fragment implements PostulationView, Ad
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
-        listView.setVisibility(View.INVISIBLE);
+//        listView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
-        progressBar.setVisibility(View.INVISIBLE);
-        listView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+//        listView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setItems(List<Postulation> postulations) {
-        adapter = new PostulationAdapter(getActivity(), R.layout.row_postulation, postulations);
-        listView.setAdapter(adapter);
+        adapter.clear();
+        adapter.addAll(postulations);
+//        adapter = new PostulationAdapter(getActivity(), R.layout.row_postulation, postulations);
+//        listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 

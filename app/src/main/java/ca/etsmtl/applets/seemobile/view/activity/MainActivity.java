@@ -1,7 +1,9 @@
 package ca.etsmtl.applets.seemobile.view.activity;
 
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
 import android.app.Application;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -19,8 +21,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.Injector;
-import ca.etsmtl.applets.seemobile.SEEApplication;
 import ca.etsmtl.applets.seemobile.R;
+import ca.etsmtl.applets.seemobile.utils.Constants;
 import ca.etsmtl.applets.seemobile.view.fragment.PostulationFragment;
 import ca.etsmtl.applets.seemobile.view.fragment.StagesFragment;
 
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     SharedPreferences sharedPreferences;
+
+    @Inject
+    AccountManager accountManager;
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -47,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         Injector.INSTANCE.getServiceComponent().inject(this);
+
+        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+        if (!isLoggedIn) {
+            final AccountManagerFuture<Bundle> future = accountManager.addAccount(Constants.ACCOUNT_TYPE, Constants.AUTH_TOKEN_TYPE, null, null, MainActivity.this, new AccountManagerCallback<Bundle>() {
+                @Override
+                public void run(AccountManagerFuture<Bundle> future) {
+                    //Login successful
+                }
+            }, null);
+        }
 
         setSupportActionBar(toolbar);
         setupDrawerContent(navigationView);
@@ -132,10 +147,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn",false);
-        if(!isLoggedIn) {
-            Intent i = new Intent(this, LoginActivity.class);
-            startActivityForResult(i, 1);
-        }
     }
 }

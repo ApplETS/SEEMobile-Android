@@ -5,18 +5,18 @@ import android.util.Log;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.model.Session;
 import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
 import ca.etsmtl.applets.seemobile.service.SEEService;
+import ca.etsmtl.applets.seemobile.utils.AuthenticationInterceptor;
 import ca.etsmtl.applets.seemobile.utils.Synchronizer;
 import ca.etsmtl.applets.seemobile.view.PostulationView;
-import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -33,6 +33,9 @@ public class PostulationPresenter implements IPostulationPresenter {
 
     @Inject
     DatabaseHelper databaseHelper;
+
+    @Inject
+    AuthenticationInterceptor authenticationInterceptor;
 
     private Synchronizer<Postulation> postulationSynchronizer;
     private Dao<Postulation, ?> postulationDao;
@@ -63,7 +66,7 @@ public class PostulationPresenter implements IPostulationPresenter {
         postulationView.showProgress();
 
         seeService.getApi()
-                .getPostulations()
+                .getPostulations(new Session("20151"))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(postulationSynchronizer::synchronize)

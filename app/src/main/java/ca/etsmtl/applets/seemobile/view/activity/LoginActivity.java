@@ -1,12 +1,15 @@
 package ca.etsmtl.applets.seemobile.view.activity;
 
+import android.accounts.Account;
+import android.accounts.AccountAuthenticatorActivity;
+import android.accounts.AccountManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +28,7 @@ import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Credentials;
 import ca.etsmtl.applets.seemobile.service.SEEService;
+import ca.etsmtl.applets.seemobile.utils.Constants;
 import ca.etsmtl.applets.seemobile.utils.Utils;
 import retrofit.Response;
 import rx.Observer;
@@ -34,7 +38,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by gnut3ll4 on 26/12/15.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AccountAuthenticatorActivity {
 
     @Bind(R.id.edittext_username)
     EditText editTextUsername;
@@ -54,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Inject
     SEEService seeService;
+
+    @Inject
+    AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +83,11 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword.setError(null);
 
         // Store values at the time of the login attempt.
-        String username = editTextUsername.getText().toString();
-        String password = editTextPassword.getText().toString();
+        final String username = editTextUsername.getText().toString();
+        final String password = editTextPassword.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
-
-        // Check for a valid email address.
 
         if (TextUtils.isEmpty(username)) {
             editTextUsername.setError(getString(R.string.error_field_required));
@@ -133,11 +138,28 @@ public class LoginActivity extends AppCompatActivity {
                                     authToken = cookie;
                                 }
                             }
+
+                            final Account account = new Account(username, Constants.ACCOUNT_TYPE);
+
+                            if (getIntent().getBooleanExtra(Constants.KEY_IS_ADDING_NEW_ACCOUNT, false)) {
+                                accountManager.addAccountExplicitly(account, password, null);
+                            } else {
+                                accountManager.setPassword(account, password);
+                            }
+
+                            accountManager.setAuthToken(account, Constants.AUTH_TOKEN_TYPE, authToken);
+
+                            Intent intent = new Intent();
+                            intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, username);
+                            intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, Constants.ACCOUNT_TYPE);
+
+                            setAccountAuthenticatorResult(intent.getExtras());
+                            setResult(RESULT_OK, intent);
+
                             sharedPreferences.edit().putBoolean("isLoggedIn", true).commit();
                             finish();
                         }
                     });
-
         }
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 import ca.etsmtl.applets.seemobile.model.Credentials;
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.model.Session;
 import retrofit.Response;
 import retrofit.Retrofit;
 import retrofit.http.Body;
@@ -41,7 +42,7 @@ public class SEEService {
         Observable<Poste> getPoste();
 
         @POST("/Services/SEEMobile/SEEMobile.svc/obtenirPostulations")
-        Observable<List<Postulation>> getPostulations();
+        Observable<List<Postulation>> getPostulations(@Body Session session);
     }
 
 }

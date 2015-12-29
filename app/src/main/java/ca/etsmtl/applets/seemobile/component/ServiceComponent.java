@@ -6,6 +6,7 @@ import ca.etsmtl.applets.seemobile.SEEApplication;
 import ca.etsmtl.applets.seemobile.module.AppModule;
 import ca.etsmtl.applets.seemobile.module.ServiceModule;
 import ca.etsmtl.applets.seemobile.presenter.PostulationPresenter;
+import ca.etsmtl.applets.seemobile.service.SEEAuthenticator;
 import ca.etsmtl.applets.seemobile.service.SEEService;
 import ca.etsmtl.applets.seemobile.view.activity.LoginActivity;
 import ca.etsmtl.applets.seemobile.view.activity.MainActivity;
@@ -23,4 +24,5 @@ public interface ServiceComponent {
     void inject(PostulationPresenter presenter);
     void inject(LoginActivity loginActivity);
     void inject(MainActivity mainActivity);
+    void inject(SEEAuthenticator seeAuthenticator);
 }
