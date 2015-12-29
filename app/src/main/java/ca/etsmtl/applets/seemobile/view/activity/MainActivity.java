@@ -86,13 +86,18 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         try {
-            fragmentManager.beginTransaction().replace(R.id.flContent, PostulationFragment.class.newInstance()).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, PostulationFragment.class.newInstance()).addToBackStack(null).commit();
             fragmentManager.executePendingTransactions();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
     }
 
 
