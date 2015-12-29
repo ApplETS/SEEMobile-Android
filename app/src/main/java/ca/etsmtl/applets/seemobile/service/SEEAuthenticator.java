@@ -8,21 +8,14 @@ import android.accounts.NetworkErrorException;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
-import com.squareup.okhttp.ResponseBody;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,14 +23,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ca.etsmtl.applets.seemobile.Injector;
-import ca.etsmtl.applets.seemobile.R;
-import ca.etsmtl.applets.seemobile.model.Credentials;
 import ca.etsmtl.applets.seemobile.utils.AuthenticationInterceptor;
 import ca.etsmtl.applets.seemobile.utils.Constants;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import static android.accounts.AccountManager.KEY_BOOLEAN_RESULT;
 
@@ -91,7 +78,7 @@ public class SEEAuthenticator extends AbstractAccountAuthenticator {
     }
 
     @Override
-    public Bundle getAuthToken(AccountAuthenticatorResponse response, Account account, String authTokenType, Bundle options) throws NetworkErrorException {
+    public Bundle getAuthToken(AccountAuthenticatorResponse authenticatorResponse, Account account, String authTokenType, Bundle options) throws NetworkErrorException {
         // Extract the username and password from the Account Manager, and ask
         // the server for an appropriate AuthToken.
 
@@ -103,22 +90,32 @@ public class SEEAuthenticator extends AbstractAccountAuthenticator {
             final String username = account.name;
 
 
-            authToken = seeService.getApi()
-                    .authenticate(new Credentials(username, password))
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .flatMap(r -> {
-                        List<String> cookies = r.headers().values("Set-Cookie");
-                        String token = "";
-                        for (String cookie : cookies) {
-                            if (cookie.contains("ASP.NET_SessionId")) {
-                                token = cookie;
-                            }
-                        }
-                        return Observable.just(token);
-                    }).toBlocking().first();
-//todo remove int
-            int i = 0;
+            OkHttpClient client = new OkHttpClient();
+
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n    \"codeAccesUniversel\":\"" + username + "\",\n    \"motPasse\":\"" + password + "\"\n}");
+            Request request = new Request.Builder()
+                    .url("https://see-preprod.etsmtl.ca/Services/SEEMobile/SEEMobile.svc/authentifierEtudiant")
+                    .post(body)
+                    .addHeader("user-agent", "applETS")
+                    .addHeader("accept", "application/json")
+                    .addHeader("content-type", "application/json")
+                    .addHeader("accept-charset", "UTF-8")
+                    .build();
+
+            try {
+                Response response = client.newCall(request).execute();
+                List<String> cookies = response.headers().values("Set-Cookie");
+
+                for (String cookie : cookies) {
+                    if (cookie.contains("ASP.NET_SessionId")) {
+                        authToken = cookie;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }
 

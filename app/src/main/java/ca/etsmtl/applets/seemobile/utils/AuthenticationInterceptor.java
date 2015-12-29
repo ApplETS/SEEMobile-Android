@@ -2,6 +2,8 @@ package ca.etsmtl.applets.seemobile.utils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Request;
@@ -21,11 +23,23 @@ public class AuthenticationInterceptor implements Interceptor {
         this.accountManager = accountManager;
     }
 
+    public String getAuthToken() {
+        return authToken;
+    }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Account[] accounts = accountManager.getAccountsByType(Constants.ACCOUNT_TYPE);
         if (accounts.length > 0) {
-            authToken = accountManager.peekAuthToken(accounts[0], Constants.AUTH_TOKEN_TYPE);
+            try {
+                authToken = accountManager.blockingGetAuthToken(accounts[0], Constants.AUTH_TOKEN_TYPE, true);
+            } catch (OperationCanceledException e) {
+                e.printStackTrace();
+            } catch (AuthenticatorException e) {
+                e.printStackTrace();
+            }
+//            accountManager.getAuthToken(accounts[0], Constants.AUTH_TOKEN_TYPE, null, false, null, null);
+//            authToken = accountManager.peekAuthToken(accounts[0], Constants.AUTH_TOKEN_TYPE);
         } else {
             authToken = "";
         }

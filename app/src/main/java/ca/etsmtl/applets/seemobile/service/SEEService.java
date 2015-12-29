@@ -5,6 +5,7 @@ import com.squareup.okhttp.ResponseBody;
 import java.util.List;
 
 import ca.etsmtl.applets.seemobile.model.Credentials;
+import ca.etsmtl.applets.seemobile.model.ListePostulations;
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.model.Session;
@@ -42,7 +43,7 @@ public class SEEService {
         Observable<Poste> getPoste();
 
         @POST("/Services/SEEMobile/SEEMobile.svc/obtenirPostulations")
-        Observable<List<Postulation>> getPostulations(@Body Session session);
+        Observable<ListePostulations> getPostulations(@Body Session session);
     }
 
 }
