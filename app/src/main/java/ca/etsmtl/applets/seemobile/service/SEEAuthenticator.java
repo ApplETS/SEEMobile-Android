@@ -23,6 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ca.etsmtl.applets.seemobile.Injector;
+import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.utils.AuthenticationInterceptor;
 import ca.etsmtl.applets.seemobile.utils.Constants;
 
@@ -34,9 +35,6 @@ import static android.accounts.AccountManager.KEY_BOOLEAN_RESULT;
 public class SEEAuthenticator extends AbstractAccountAuthenticator {
 
     private final Class loginActivity;
-
-    @Inject
-    SEEService seeService;
 
     @Inject
     AccountManager accountManager;
@@ -79,9 +77,6 @@ public class SEEAuthenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse authenticatorResponse, Account account, String authTokenType, Bundle options) throws NetworkErrorException {
-        // Extract the username and password from the Account Manager, and ask
-        // the server for an appropriate AuthToken.
-
         String authToken = accountManager.peekAuthToken(account, authTokenType);
 
         // Lets give another try to authenticate the user
@@ -89,13 +84,14 @@ public class SEEAuthenticator extends AbstractAccountAuthenticator {
             final String password = accountManager.getPassword(account);
             final String username = account.name;
 
+            String authUrl = application.getString(R.string.see_api_auth_url);
 
             OkHttpClient client = new OkHttpClient();
 
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, "{\n    \"codeAccesUniversel\":\"" + username + "\",\n    \"motPasse\":\"" + password + "\"\n}");
             Request request = new Request.Builder()
-                    .url("https://see-preprod.etsmtl.ca/Services/SEEMobile/SEEMobile.svc/authentifierEtudiant")
+                    .url(authUrl)
                     .post(body)
                     .addHeader("user-agent", "applETS")
                     .addHeader("accept", "application/json")
@@ -115,7 +111,6 @@ public class SEEAuthenticator extends AbstractAccountAuthenticator {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
         }
 

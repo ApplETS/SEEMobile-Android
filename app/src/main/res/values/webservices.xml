@@ -3,4 +3,5 @@
     <!--<string name="see_api_base_url">http://10.0.3.3:5000</string>-->
     <!--<string name="see_api_base_url">http://dummy-api-stages.herokuapp.com</string>-->
     <string name="see_api_base_url">https://see-preprod.etsmtl.ca</string>
+    <string name="see_api_auth_url">https://see-preprod.etsmtl.ca/Services/SEEMobile/SEEMobile.svc/authentifierEtudiant</string>
 </resources>

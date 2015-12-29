@@ -21,4 +21,8 @@ public class ListePostulations extends BaseModel {
     public void setPostulationList(List<Postulation> postulationList) {
         this.postulationList = postulationList;
     }
+
+    public void addAll(ListePostulations listePostulations) {
+        this.postulationList.addAll(listePostulations.getPostulationList());
+    }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ca.etsmtl.applets.seemobile.Injector;
+import ca.etsmtl.applets.seemobile.model.ListePostulations;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.model.Session;
 import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
@@ -75,14 +76,24 @@ public class PostulationPresenter implements IPostulationPresenter {
 
         postulationView.showProgress();
 
-        seeService.getApi()
-                .getPostulations(new Session("20151"))
+        Session currentSession = new Session();
+        Observable<ListePostulations> postulationsCurrentSession = seeService.getApi()
+                .getPostulations(currentSession);
+        Observable<ListePostulations> postulationsPreviousSession = seeService.getApi()
+                .getPostulations(currentSession.getSessionBefore());
+
+
+        Observable.zip(postulationsCurrentSession, postulationsPreviousSession,
+                (listePostulations1, listePostulations2) -> {
+                    listePostulations1.addAll(listePostulations2);
+                    return listePostulations1;
+                })
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(listePostulations -> {
                     if (listePostulations.getErreur().getCode() != 1000) {
                         accountManager.invalidateAuthToken(Constants.ACCOUNT_TYPE, authenticationInterceptor.getAuthToken());
-                        return Observable.error(new Exception());
+                        return Observable.error(new Exception("Request didn't succeed"));
                     } else {
                         return Observable.just(listePostulations.getPostulationList());
                     }
