@@ -80,7 +80,7 @@ public class PostulationPresenter implements IPostulationPresenter {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(listePostulations -> {
-                    if (listePostulations.getErreur().getCode() == 100) {
+                    if (listePostulations.getErreur().getCode() != 1000) {
                         accountManager.invalidateAuthToken(Constants.ACCOUNT_TYPE, authenticationInterceptor.getAuthToken());
                         return Observable.error(new Exception());
                     } else {
