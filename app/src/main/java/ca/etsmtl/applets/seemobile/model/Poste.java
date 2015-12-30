@@ -1,18 +1,39 @@
 package ca.etsmtl.applets.seemobile.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by gnut3ll4 on 22/12/15.
  */
+@DatabaseTable(tableName = "poste")
 public class Poste {
 
-    private int duree;
-    private boolean estFavori;
+    @DatabaseField(id = true)
     private String guid;
+
+    @DatabaseField
+    private int duree;
+
+    @DatabaseField
+    private boolean estFavori;
+
+    @DatabaseField
     private String lieu;
+
+    @DatabaseField
     private String numeroPoste;
+
+    @DatabaseField
     private String nomEmployeur;
+
+    @DatabaseField
     private String nomPoste;
+
+    @DatabaseField
     private boolean aPostule;
+
+    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private PosteDetails details;
 
     public Poste() {
