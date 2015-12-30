@@ -98,7 +98,7 @@ public class PostulationPresenter implements IPostulationPresenter {
                         return Observable.just(listePostulations.getPostulationList());
                     }
                 })
-                .retry()
+                .retry(1)
                 .doOnNext(postulationSynchronizer::synchronize)
                 .subscribe(new Observer<List<Postulation>>() {
                     @Override
