@@ -77,17 +77,18 @@ public class PostulationPresenter implements IPostulationPresenter {
         postulationView.showProgress();
 
         Session currentSession = new Session();
-        Observable<ListePostulations> postulationsCurrentSession = getListePostulations(currentSession);
-        Observable<ListePostulations> postulationsPreviousSession = getListePostulations(currentSession.getSessionBefore());
-        Observable.zip(postulationsCurrentSession, postulationsPreviousSession,
+
+        Observable.zip(
+                getListePostulations(currentSession),
+                getListePostulations(currentSession.getSessionBefore()),
                 (listePostulations1, listePostulations2) -> {
                     listePostulations1.addAll(listePostulations2);
                     return listePostulations1;
                 })
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(listePostulations -> Observable.just(listePostulations.getPostulationList()))
-                .retry(1)
+                .flatMap(listePostulations ->
+                        Observable.just(listePostulations.getPostulationList()))
                 .doOnNext(postulationSynchronizer::synchronize)
                 .subscribe(new Observer<List<Postulation>>() {
                     @Override
