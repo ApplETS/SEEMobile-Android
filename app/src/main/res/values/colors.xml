@@ -2,7 +2,10 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">@color/etsRouge</color>
     <color name="PrimaryColor">#365e43</color>
     <color name="white">#FFFFFF</color>
+    <color name="etsRouge">#EF3E45</color>
+    <color name="etsRougeFonce">#BF311A</color>
+
 </resources>

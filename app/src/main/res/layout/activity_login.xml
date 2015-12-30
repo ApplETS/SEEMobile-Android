@@ -1,87 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true">
 
-    <ImageView
+
+    <!--
+ -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="Background ÉTS"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ets_background" />
+        android:layout_height="match_parent">
 
-
-    <LinearLayout
-        android:id="@+id/login_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
+        <LinearLayout
+            android:id="@+id/login_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/tv_login_status_message"
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_login_status_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/login_progress_signing_in"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/login_progress_signing_in"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white" />
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="Background ÉTS"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ets_background" />
 
-
-    <LinearLayout
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top|center"
-        android:orientation="vertical"
-        android:padding="12dp">
-
-        <EditText
-            android:id="@+id/edittext_username"
+        <LinearLayout
+            android:id="@+id/login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_email"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:orientation="vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="56dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp">
 
-        <EditText
-            android:id="@+id/edittext_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            android:hint="@string/prompt_password"
-            android:imeActionId="@+id/login"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            <!--   <LinearLayout
+                   android:id="@+id/login_form"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_gravity="top|center"
+                   android:orientation="vertical"
+                   android:padding="12dp">
 
-        <Button
-            android:id="@+id/btn_sign_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:text="@string/action_sign_in_register"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
 
-</FrameLayout>
+       -->
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/white">
+
+            </android.support.design.widget.TextInputLayout>
+
+            <EditText
+                android:id="@+id/edittext_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Code universel"
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/white"
+                android:textColorHighlight="@color/etsRougeFonce"
+                android:textColorHint="@android:color/white" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/white">
+
+            </android.support.design.widget.TextInputLayout>
+
+            <EditText
+                android:id="@+id/edittext_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mot de passe"
+                android:inputType="textPassword"
+                android:textColor="@android:color/white"
+                android:textColorHighlight="@color/etsRougeFonce"
+                android:textColorHint="@android:color/white"
+                android:singleLine="false" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_sign_in"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="#efad1117"
+                android:padding="12dp"
+                android:text="Connexion"
+                android:textColor="@android:color/white" />
+
+            <!--
+               <EditText
+                   android:id="@+id/edittext_username"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:hint="@string/prompt_email"
+                   android:inputType="text"
+                   android:maxLines="1"
+                   android:singleLine="true"
+                   android:textColor="@android:color/white"
+                   android:textColorHint="@android:color/white" />
+
+          <EditText
+                   android:id="@+id/edittext_password"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+
+                   android:hint="@string/prompt_password"
+                   android:imeActionId="@+id/login"
+                   android:imeActionLabel="@string/action_sign_in_short"
+                   android:imeOptions="actionUnspecified"
+                   android:inputType="textPassword"
+                   android:maxLines="1"
+                   android:singleLine="true"
+                   android:textColor="@android:color/white"
+                   android:textColorHint="@android:color/white" />
+
+               <Button
+                   android:id="@+id/btn_sign_in"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="end"
+                   android:layout_marginTop="16dp"
+                   android:background="@android:color/transparent"
+                   android:paddingLeft="32dp"
+                   android:paddingRight="32dp"
+                   android:text="@string/action_sign_in_register"
+                   android:textColor="@android:color/white" />
+                   -->
+        </LinearLayout>
+    </RelativeLayout>
+    <!--  </LinearLayout> -->
+</RelativeLayout>
