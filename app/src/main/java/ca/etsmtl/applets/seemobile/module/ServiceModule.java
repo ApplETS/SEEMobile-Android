@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
@@ -17,11 +16,10 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.inject.Singleton;
 
-import ca.etsmtl.applets.seemobile.model.ListePostulations;
+import ca.etsmtl.applets.seemobile.model.ListePostulationsResult;
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
@@ -69,7 +67,7 @@ public class ServiceModule {
     Gson provideGson() {
 
         GsonBuilder gsonBuilder = new GsonBuilder()
-                .registerTypeAdapter(ListePostulations.class, new PostulationsDeserializer())
+                .registerTypeAdapter(ListePostulationsResult.class, new PostulationsDeserializer())
                 .registerTypeAdapter(Poste.class, new PosteDeserializer());
 
         return gsonBuilder.create();

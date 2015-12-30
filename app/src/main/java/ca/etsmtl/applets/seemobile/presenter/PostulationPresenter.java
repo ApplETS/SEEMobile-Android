@@ -1,21 +1,17 @@
 package ca.etsmtl.applets.seemobile.presenter;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import ca.etsmtl.applets.seemobile.Injector;
-import ca.etsmtl.applets.seemobile.model.ListePostulations;
+import ca.etsmtl.applets.seemobile.model.ListePostulationsResult;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.model.Session;
 import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
@@ -117,7 +113,7 @@ public class PostulationPresenter implements IPostulationPresenter {
         postulationView.showMessage(String.format("Position %d clicked", position + 1));
     }
 
-    public Observable<ListePostulations> getListePostulations(Session session) {
+    public Observable<ListePostulationsResult> getListePostulations(Session session) {
         return seeService.getApi()
                 .getPostulations(session)
                 .flatMap(listePostulations -> {
