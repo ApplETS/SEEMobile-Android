@@ -21,6 +21,7 @@ import javax.inject.Singleton;
 
 import ca.etsmtl.applets.seemobile.model.ListePostulationsResult;
 import ca.etsmtl.applets.seemobile.model.Poste;
+import ca.etsmtl.applets.seemobile.model.PosteResult;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
 import ca.etsmtl.applets.seemobile.service.SEEService;
@@ -68,7 +69,7 @@ public class ServiceModule {
 
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .registerTypeAdapter(ListePostulationsResult.class, new PostulationsDeserializer())
-                .registerTypeAdapter(Poste.class, new PosteDeserializer());
+                .registerTypeAdapter(PosteResult.class, new PosteDeserializer());
 
         return gsonBuilder.create();
     }

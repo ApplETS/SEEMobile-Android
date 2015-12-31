@@ -21,8 +21,6 @@ public class PostulationsDeserializer implements JsonDeserializer<ListePostulati
     @Override
     public ListePostulationsResult deserialize(JsonElement je, Type type, JsonDeserializationContext jdc)
             throws JsonParseException {
-        // Get the "content" element from the parsed JSON
-
 
         JsonElement base = je.getAsJsonObject().get("obtenirPostulationsResult");
         JsonElement donnees = base.getAsJsonObject().get("donnees");
@@ -33,11 +31,8 @@ public class PostulationsDeserializer implements JsonDeserializer<ListePostulati
         List<Postulation> postulations = new Gson().fromJson(donnees, new TypeToken<List<Postulation>>() {
         }.getType());
 
-
         ListePostulationsResult listePostulations = new ListePostulationsResult(erreur, postulations);
 
-        // Deserialize it. You use a new instance of Gson to avoid infinite recursion
-        // to this deserializer
         return listePostulations;
 
     }
