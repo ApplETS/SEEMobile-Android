@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- The ActionBar displayed at the top -->
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <!-- The main content view where fragments are loaded -->
-    <FrameLayout
-        android:id="@+id/flContent"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+            <android.support.v4.view.PagerTabStrip
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="#000"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:textColor="#fff" />
+
+        </android.support.v4.view.ViewPager>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="test"/>
+    </LinearLayout>
+
 </LinearLayout>
