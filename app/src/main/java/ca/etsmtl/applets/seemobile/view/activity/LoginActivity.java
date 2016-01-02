@@ -3,9 +3,8 @@ package ca.etsmtl.applets.seemobile.view.activity;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
 import android.accounts.AccountManager;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -39,6 +38,7 @@ import rx.schedulers.Schedulers;
  * Created by gnut3ll4 on 26/12/15.
  */
 public class LoginActivity extends AccountAuthenticatorActivity {
+
 
     @Bind(R.id.edittext_username)
     EditText editTextUsername;
@@ -83,8 +83,8 @@ public class LoginActivity extends AccountAuthenticatorActivity {
         editTextPassword.setError(null);
 
         // Store values at the time of the login attempt.
-        final String username = editTextUsername.getText().toString();
-        final String password = editTextPassword.getText().toString();
+        String username = editTextUsername.getText().toString();
+        String password = editTextPassword.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -110,6 +110,7 @@ public class LoginActivity extends AccountAuthenticatorActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+
             showProgress(true);
 
             seeService.getApi()
@@ -117,15 +118,20 @@ public class LoginActivity extends AccountAuthenticatorActivity {
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<Response<ResponseBody>>() {
-                        @Override
-                        public void onCompleted() {
-                            showProgress(false);
-                        }
+
 
                         @Override
                         public void onError(Throwable e) {
+                            showProgress(false);
+                            //  progressDialog.hide();
                             editTextPassword.setError(getString(R.string.error_incorrect_password));
                             editTextPassword.requestFocus();
+                        }
+
+                        @Override
+                        public void onCompleted() {
+                            showProgress(false);
+                            //progressDialog.hide();
                         }
 
                         @Override
@@ -171,31 +177,11 @@ public class LoginActivity extends AccountAuthenticatorActivity {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            loginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            statusView.setVisibility(show ? View.VISIBLE : View.GONE);
-            statusView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    statusView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            statusView.setVisibility(show ? View.VISIBLE : View.GONE);
-            loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Connexion...");
+        progressDialog.show();
     }
 }
