@@ -43,14 +43,16 @@ public class PostePresenter implements IPostePresenter {
     private Dao<Poste, ?> posteDao;
     private Synchronizer<Poste> posteSynchronizer;
 
+    private String guidPoste;
+
 
     private PosteView posteView;
 
 
-    public PostePresenter(PosteView posteView) {
+    public PostePresenter(PosteView posteView, String guidPoste) {
         this.posteView = posteView;
         Injector.INSTANCE.getServiceComponent().inject(this);
-
+        this.guidPoste = guidPoste;
 
     }
 
@@ -66,7 +68,7 @@ public class PostePresenter implements IPostePresenter {
         posteSynchronizer = new Synchronizer<>(posteDao);
 
         seeService.getApi()
-                .getPoste(new GuidPoste("8b547e99-dae6-4d59-baba-a44300df750a"))
+                .getPoste(new GuidPoste(guidPoste))
                 .flatMap(result -> {
                     if (result.getErreur().getCode() != 1000) {
                         accountManager.invalidateAuthToken(Constants.ACCOUNT_TYPE, authenticationInterceptor.getAuthToken());
@@ -99,7 +101,6 @@ public class PostePresenter implements IPostePresenter {
                         posteView.setPoste(postes.get(0));
                     }
                 });
-
 
 
     }

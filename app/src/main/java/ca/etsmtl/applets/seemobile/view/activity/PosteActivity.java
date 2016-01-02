@@ -1,5 +1,6 @@
 package ca.etsmtl.applets.seemobile.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.presenter.PostePresenter;
+import ca.etsmtl.applets.seemobile.utils.Constants;
 import ca.etsmtl.applets.seemobile.view.PosteView;
 import ca.etsmtl.applets.seemobile.view.adapter.PostePagerAdapter;
 
@@ -29,12 +31,15 @@ public class PosteActivity extends AppCompatActivity implements PosteView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        Intent myIntent = getIntent();
+        String guidPoste = myIntent.getStringExtra(Constants.GUID_POSTE);
+
         viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setOffscreenPageLimit(3);
         postePagerAdapter = new PostePagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(postePagerAdapter);
 
-        presenter = new PostePresenter(this);
+        presenter = new PostePresenter(this, guidPoste);
     }
 
     @Override
