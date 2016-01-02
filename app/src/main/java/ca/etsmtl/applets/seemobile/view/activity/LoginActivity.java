@@ -181,7 +181,7 @@ public class LoginActivity extends AccountAuthenticatorActivity {
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Connexion...");
+        progressDialog.setMessage(getString(R.string.login_progress_signing_in));
         progressDialog.show();
     }
 }

@@ -22,6 +22,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.R;
+import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.utils.Constants;
 import ca.etsmtl.applets.seemobile.view.fragment.PostulationFragment;
 import ca.etsmtl.applets.seemobile.view.fragment.StagesFragment;
@@ -84,10 +85,11 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
         try {
-            fragmentManager.beginTransaction().replace(R.id.flContent, PostulationFragment.class.newInstance()).addToBackStack(null).commit();
-            fragmentManager.executePendingTransactions();
+            Class fragmentClass;
+            fragmentClass = PostulationFragment.class;
+            Fragment fragment = (Fragment) fragmentClass.newInstance();
+            setActiveFragment(getString(R.string.postulations), fragment,fragmentClass);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -137,16 +139,23 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        menuItem.setChecked(true);
+        setActiveFragment(menuItem.getTitle().toString(), fragment, fragmentClass);
 
+
+        drawerLayout.closeDrawers();
+    }
+
+    private void setActiveFragment(String title, Fragment fragment, Class fragmentClass) {
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment, fragmentClass.getName()).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment, fragmentClass
+                .getName()).addToBackStack(null).commit();
         fragmentManager.executePendingTransactions();
 
         // Highlight the selected item, update the title, and close the drawer
-        menuItem.setChecked(true);
-        setTitle(menuItem.getTitle());
-        drawerLayout.closeDrawers();
+
+        setTitle(title);
     }
 
     @Override
