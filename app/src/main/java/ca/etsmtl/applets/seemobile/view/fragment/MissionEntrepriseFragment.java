@@ -2,6 +2,7 @@ package ca.etsmtl.applets.seemobile.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,12 @@ public class MissionEntrepriseFragment extends Fragment implements PosteView {
 
     @Override
     public void setPoste(Poste poste) {
-        webViewMission.loadDataWithBaseURL(null, poste.getMissionEmployeur(), "text/html", "utf-8", null);
+        String mission = "";
+        if(TextUtils.isEmpty(poste.getMissionEmployeur())) {
+            mission = "Il n'y a présentement pas de description pour cette entreprise.";
+        } else {
+            mission = poste.getMissionEmployeur();
+        }
+        webViewMission.loadDataWithBaseURL(null, mission, "text/html", "utf-8", null);
     }
 }

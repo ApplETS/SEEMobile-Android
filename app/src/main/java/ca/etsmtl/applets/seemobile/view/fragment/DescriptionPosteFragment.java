@@ -8,13 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.view.PosteView;
 
 public class DescriptionPosteFragment extends Fragment implements PosteView {
 
-    private WebView webViewDescription;
+    @Bind(R.id.webview_description)
+    WebView webViewDescription;
 
     public DescriptionPosteFragment() {
         // Required empty public constructor
@@ -34,8 +37,7 @@ public class DescriptionPosteFragment extends Fragment implements PosteView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_description_poste, container, false);
-
-        webViewDescription = (WebView) v.findViewById(R.id.webview_description);
+        ButterKnife.bind(this, v);
 
         return v;
     }
