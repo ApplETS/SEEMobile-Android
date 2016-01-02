@@ -1,5 +1,7 @@
 package ca.etsmtl.applets.seemobile.view.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -114,10 +118,11 @@ public class InformationsPosteFragment extends Fragment implements PosteView {
         fabActionLocaliser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?z=18&q=" + Uri.encode(poste.getCodePostal().replace(" ",""))));
+                getActivity().startActivity(intent);
             }
         });
-
 
 
     }
