@@ -3,7 +3,10 @@ package ca.etsmtl.applets.seemobile.view.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
+import ca.etsmtl.applets.seemobile.model.Poste;
+import ca.etsmtl.applets.seemobile.view.PosteView;
 import ca.etsmtl.applets.seemobile.view.fragment.DescriptionPosteFragment;
 import ca.etsmtl.applets.seemobile.view.fragment.InformationsPosteFragment;
 import ca.etsmtl.applets.seemobile.view.fragment.MissionEntrepriseFragment;
@@ -11,23 +14,29 @@ import ca.etsmtl.applets.seemobile.view.fragment.MissionEntrepriseFragment;
 /**
  * Created by gnut3ll4 on 31/12/15.
  */
-public class PostePagerAdapter extends FragmentPagerAdapter {
+public class PostePagerAdapter extends FragmentStatePagerAdapter {
+
+    private Poste poste;
 
     public PostePagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
+    public void setPoste(Poste poste) {
+        this.poste = poste;
+        notifyDataSetChanged();
+    }
+
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position) {
             case 0:
-                return InformationsPosteFragment.newInstance("", "");
+                return InformationsPosteFragment.newInstance();
             case 1:
-                return MissionEntrepriseFragment.newInstance("","");
+                return DescriptionPosteFragment.newInstance();
             case 2:
-                return DescriptionPosteFragment.newInstance("","");
+                return MissionEntrepriseFragment.newInstance();
         }
         return null;
     }
@@ -44,10 +53,19 @@ public class PostePagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Informations sur le stage";
             case 1:
-                return "Mission de l'entreprise";
-            case 2:
                 return "Description du stage";
+            case 2:
+                return "Mission de l'entreprise";
         }
         return null;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        if (object instanceof PosteView) {
+            ((PosteView) object).setPoste(poste);
+        }
+        //don't return POSITION_NONE, avoid fragment recreation.
+        return super.getItemPosition(object);
     }
 }

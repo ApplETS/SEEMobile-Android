@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import ca.etsmtl.applets.seemobile.SEEApplication;
 import ca.etsmtl.applets.seemobile.module.AppModule;
 import ca.etsmtl.applets.seemobile.module.ServiceModule;
+import ca.etsmtl.applets.seemobile.presenter.PostePresenter;
 import ca.etsmtl.applets.seemobile.presenter.PostulationPresenter;
 import ca.etsmtl.applets.seemobile.service.SEEAuthenticator;
 import ca.etsmtl.applets.seemobile.service.SEEService;
@@ -25,4 +26,5 @@ public interface ServiceComponent {
     void inject(LoginActivity loginActivity);
     void inject(MainActivity mainActivity);
     void inject(SEEAuthenticator seeAuthenticator);
+    void inject(PostePresenter postePresenter);
 }

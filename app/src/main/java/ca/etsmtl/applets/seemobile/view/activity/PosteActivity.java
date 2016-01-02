@@ -5,10 +5,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import java.util.List;
-
 import ca.etsmtl.applets.seemobile.R;
-import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.model.Poste;
+import ca.etsmtl.applets.seemobile.presenter.PostePresenter;
 import ca.etsmtl.applets.seemobile.view.PosteView;
 import ca.etsmtl.applets.seemobile.view.adapter.PostePagerAdapter;
 
@@ -19,7 +18,7 @@ public class PosteActivity extends AppCompatActivity implements PosteView {
 
     private PostePagerAdapter postePagerAdapter;
     private ViewPager viewPager;
-
+    private PostePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,26 +29,31 @@ public class PosteActivity extends AppCompatActivity implements PosteView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        postePagerAdapter = new PostePagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
         viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager.setOffscreenPageLimit(3);
+        postePagerAdapter = new PostePagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(postePagerAdapter);
 
+        presenter = new PostePresenter(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onResume();
     }
 
     @Override
     public void showProgress() {
-
     }
 
     @Override
     public void hideProgress() {
-
     }
 
     @Override
-    public void setItems(List<Postulation> postulations) {
-
+    public void setPoste(Poste poste) {
+        postePagerAdapter.setPoste(poste);
     }
+
 }
