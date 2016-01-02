@@ -5,7 +5,7 @@ package ca.etsmtl.applets.seemobile.presenter;
  */
 public interface IPostulationPresenter {
 
-    public void onResume();
+    void onResume();
 
-    public void onItemClicked(int position);
+    void onItemClicked(int position);
 }

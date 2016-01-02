@@ -15,4 +15,7 @@
     <string name="error_invalid_username">Code sous la forme \'AB12345\'</string>
     <string name="error_incorrect_password">Le mot de passe est invalide</string>
 
+    <string name="employeur_poste">%1$s \n(%2$s entreprise)</string>
+    <string name="duree_poste">%1$s mois</string>
+
 </resources>
