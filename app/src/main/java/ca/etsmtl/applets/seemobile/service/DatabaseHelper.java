@@ -10,6 +10,7 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
+import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 
 /**
@@ -36,6 +37,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getName(), "onCreate");
             TableUtils.createTable(connectionSource, Postulation.class);
+            TableUtils.createTable(connectionSource, Poste.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,6 +53,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
             TableUtils.dropTable(connectionSource, Postulation.class, true);
+            TableUtils.dropTable(connectionSource, Poste.class, true);
 
             // after we drop the old databases, we create the new ones
             onCreate(db, connectionSource);

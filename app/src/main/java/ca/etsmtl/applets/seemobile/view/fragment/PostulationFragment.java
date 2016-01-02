@@ -1,5 +1,6 @@
 package ca.etsmtl.applets.seemobile.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,9 @@ import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.presenter.PostulationPresenter;
+import ca.etsmtl.applets.seemobile.utils.Constants;
 import ca.etsmtl.applets.seemobile.view.PostulationView;
+import ca.etsmtl.applets.seemobile.view.activity.PosteActivity;
 import ca.etsmtl.applets.seemobile.view.adapter.PostulationAdapter;
 
 /**
@@ -60,6 +63,10 @@ public class PostulationFragment extends Fragment implements PostulationView, Ad
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         presenter.onItemClicked(position);
+        Intent intent = new Intent(getActivity(), PosteActivity.class);
+        Postulation item = adapter.getItem(position);
+        intent.putExtra(Constants.GUID_POSTE, item.getGuidPoste());
+        startActivity(intent);
     }
 
     @Override
@@ -85,6 +92,6 @@ public class PostulationFragment extends Fragment implements PostulationView, Ad
 
     @Override
     public void showMessage(String message) {
-        Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+//        Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
     }
 }

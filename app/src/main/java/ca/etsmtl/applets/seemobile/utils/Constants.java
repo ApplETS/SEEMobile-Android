@@ -13,4 +13,7 @@ public class Constants {
     public static final String PARAM_USER_PASS = "USER_PASS";
     public static final String AUTH_TOKEN_TYPE = "BASIC";
     public static final String ACCOUNT_TYPE = "ca.etsmtl.applets.seemobile";
+
+
+    public static final String GUID_POSTE = "GUID_POSTE";
 }

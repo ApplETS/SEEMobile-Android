@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * Created by gnut3ll4 on 29/12/15.
  */
-public class ListePostulations extends BaseModel {
+public class ListePostulationsResult extends BaseModel {
 
     List<Postulation> postulationList;
 
-    public ListePostulations(Erreur erreur, List<Postulation> postulationList) {
+    public ListePostulationsResult(Erreur erreur, List<Postulation> postulationList) {
         super(erreur);
         this.postulationList = postulationList;
     }
@@ -22,7 +22,7 @@ public class ListePostulations extends BaseModel {
         this.postulationList = postulationList;
     }
 
-    public void addAll(ListePostulations listePostulations) {
+    public void addAll(ListePostulationsResult listePostulations) {
         this.postulationList.addAll(listePostulations.getPostulationList());
     }
 }

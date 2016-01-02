@@ -2,12 +2,10 @@ package ca.etsmtl.applets.seemobile.service;
 
 import com.squareup.okhttp.ResponseBody;
 
-import java.util.List;
-
 import ca.etsmtl.applets.seemobile.model.Credentials;
-import ca.etsmtl.applets.seemobile.model.ListePostulations;
-import ca.etsmtl.applets.seemobile.model.Poste;
-import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.model.GuidPoste;
+import ca.etsmtl.applets.seemobile.model.ListePostulationsResult;
+import ca.etsmtl.applets.seemobile.model.PosteResult;
 import ca.etsmtl.applets.seemobile.model.Session;
 import retrofit.Response;
 import retrofit.Retrofit;
@@ -40,10 +38,10 @@ public class SEEService {
         Observable<Response<ResponseBody>> authenticate(@Body Credentials credentials);
 
         @POST("/Services/SEEMobile/SEEMobile.svc/obtenirPoste")
-        Observable<Poste> getPoste();
+        Observable<PosteResult> getPoste(@Body GuidPoste guidPoste);
 
         @POST("/Services/SEEMobile/SEEMobile.svc/obtenirPostulations")
-        Observable<ListePostulations> getPostulations(@Body Session session);
+        Observable<ListePostulationsResult> getPostulations(@Body Session session);
     }
 
 }
