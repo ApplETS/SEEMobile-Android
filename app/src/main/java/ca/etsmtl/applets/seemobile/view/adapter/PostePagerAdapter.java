@@ -2,7 +2,6 @@ package ca.etsmtl.applets.seemobile.view.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import ca.etsmtl.applets.seemobile.model.Poste;
