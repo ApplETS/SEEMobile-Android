@@ -4,6 +4,7 @@ import com.squareup.okhttp.ResponseBody;
 
 import ca.etsmtl.applets.seemobile.model.Credentials;
 import ca.etsmtl.applets.seemobile.model.GuidPoste;
+import ca.etsmtl.applets.seemobile.model.ListePostesResult;
 import ca.etsmtl.applets.seemobile.model.ListePostulationsResult;
 import ca.etsmtl.applets.seemobile.model.PosteResult;
 import ca.etsmtl.applets.seemobile.model.Session;
@@ -42,6 +43,9 @@ public class SEEService {
 
         @POST("/Services/SEEMobile/SEEMobile.svc/obtenirPostulations")
         Observable<ListePostulationsResult> getPostulations(@Body Session session);
+
+        @POST("/Services/SEEMobile/SEEMobile.svc/obtenirPostesEnAffichage")
+        Observable<ListePostesResult> getPostesEnAffichage();
     }
 
 }
