@@ -19,15 +19,16 @@ import java.sql.SQLException;
 
 import javax.inject.Singleton;
 
+import ca.etsmtl.applets.seemobile.model.ListePostesResult;
 import ca.etsmtl.applets.seemobile.model.ListePostulationsResult;
-import ca.etsmtl.applets.seemobile.model.Poste;
 import ca.etsmtl.applets.seemobile.model.PosteResult;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
 import ca.etsmtl.applets.seemobile.service.SEEService;
 import ca.etsmtl.applets.seemobile.utils.AuthenticationInterceptor;
-import ca.etsmtl.applets.seemobile.utils.PosteDeserializer;
-import ca.etsmtl.applets.seemobile.utils.PostulationsDeserializer;
+import ca.etsmtl.applets.seemobile.utils.deserializers.PosteDeserializer;
+import ca.etsmtl.applets.seemobile.utils.deserializers.PostesDeserializer;
+import ca.etsmtl.applets.seemobile.utils.deserializers.PostulationsDeserializer;
 import dagger.Module;
 import dagger.Provides;
 import retrofit.GsonConverterFactory;
@@ -69,7 +70,8 @@ public class ServiceModule {
 
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .registerTypeAdapter(ListePostulationsResult.class, new PostulationsDeserializer())
-                .registerTypeAdapter(PosteResult.class, new PosteDeserializer());
+                .registerTypeAdapter(PosteResult.class, new PosteDeserializer())
+                .registerTypeAdapter(ListePostesResult.class, new PostesDeserializer());
 
         return gsonBuilder.create();
     }

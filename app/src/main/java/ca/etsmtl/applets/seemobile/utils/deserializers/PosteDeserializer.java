@@ -1,4 +1,4 @@
-package ca.etsmtl.applets.seemobile.utils;
+package ca.etsmtl.applets.seemobile.utils.deserializers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
