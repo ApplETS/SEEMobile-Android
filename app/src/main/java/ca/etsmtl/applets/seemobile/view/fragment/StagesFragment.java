@@ -61,12 +61,6 @@ public class StagesFragment extends Fragment implements StagesView, AdapterView.
 
         listViewPostes.setAdapter(posteAdapter);
 
-
-
-
-
-//        Injector.INSTANCE.getServiceComponent().inject(this);
-
         presenter = new StagesPresenter(this);
 
         listViewPostes.setOnItemClickListener(this);

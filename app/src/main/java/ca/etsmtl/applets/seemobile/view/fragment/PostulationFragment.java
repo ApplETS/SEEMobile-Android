@@ -2,7 +2,6 @@ package ca.etsmtl.applets.seemobile.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
