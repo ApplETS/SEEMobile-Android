@@ -67,6 +67,7 @@ public class PostePresenter implements IPostePresenter {
 
         posteSynchronizer = new Synchronizer<>(posteDao);
 
+        posteView.showProgress();
         seeService.getApi()
                 .getPoste(new GuidPoste(guidPoste))
                 .flatMap(result -> {
@@ -88,7 +89,7 @@ public class PostePresenter implements IPostePresenter {
                 .subscribe(new Observer<List<Poste>>() {
                     @Override
                     public void onCompleted() {
-
+                        posteView.hideProgress();
                     }
 
                     @Override

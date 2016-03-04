@@ -1,6 +1,7 @@
 package ca.etsmtl.applets.seemobile.presenter;
 
 import android.accounts.AccountManager;
+import android.content.Intent;
 import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
@@ -21,6 +22,7 @@ import ca.etsmtl.applets.seemobile.utils.AuthenticationInterceptor;
 import ca.etsmtl.applets.seemobile.utils.Constants;
 import ca.etsmtl.applets.seemobile.utils.Synchronizer;
 import ca.etsmtl.applets.seemobile.view.StagesView;
+import ca.etsmtl.applets.seemobile.view.activity.PosteActivity;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -114,6 +116,10 @@ public class StagesPresenter implements IStagesPresenter {
 
     @Override
     public void onItemClicked(int position) {
+
+
+
+
         stagesView.showMessage(String.format("Position %d clicked", position + 1));
     }
 

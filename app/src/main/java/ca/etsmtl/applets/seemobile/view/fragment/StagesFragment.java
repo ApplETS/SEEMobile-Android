@@ -1,6 +1,7 @@
 package ca.etsmtl.applets.seemobile.view.fragment;
 
 import android.accounts.AccountManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,12 +22,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.model.Poste;
+import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.presenter.StagesPresenter;
 import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
 import ca.etsmtl.applets.seemobile.service.SEEService;
 import ca.etsmtl.applets.seemobile.utils.AuthenticationInterceptor;
+import ca.etsmtl.applets.seemobile.utils.Constants;
 import ca.etsmtl.applets.seemobile.utils.Synchronizer;
 import ca.etsmtl.applets.seemobile.view.StagesView;
+import ca.etsmtl.applets.seemobile.view.activity.PosteActivity;
 import ca.etsmtl.applets.seemobile.view.adapter.PosteAdapter;
 
 /**
@@ -78,7 +82,10 @@ public class StagesFragment extends Fragment implements StagesView, AdapterView.
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         presenter.onItemClicked(position);
-
+        Intent intent = new Intent(getActivity(), PosteActivity.class);
+        Poste item = posteAdapter.getItem(position);
+        intent.putExtra(Constants.GUID_POSTE, item.getGuid());
+        startActivity(intent);
     }
 
     @Override
