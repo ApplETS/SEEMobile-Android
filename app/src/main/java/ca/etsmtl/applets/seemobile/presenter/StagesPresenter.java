@@ -12,8 +12,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ca.etsmtl.applets.seemobile.Injector;
+import ca.etsmtl.applets.seemobile.model.GuidPoste;
 import ca.etsmtl.applets.seemobile.model.ListePostulationsResult;
 import ca.etsmtl.applets.seemobile.model.Poste;
+import ca.etsmtl.applets.seemobile.model.PosteResult;
 import ca.etsmtl.applets.seemobile.model.Postulation;
 import ca.etsmtl.applets.seemobile.model.Session;
 import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
@@ -26,6 +28,7 @@ import ca.etsmtl.applets.seemobile.view.activity.PosteActivity;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -88,9 +91,13 @@ public class StagesPresenter implements IStagesPresenter {
                     }
                 })
                 .retry(1)
+                .flatMap(listeStages -> Observable.from(listeStages.getPostesList()))
+                .flatMap(poste -> seeService.getApi()
+                        .getPoste(new GuidPoste(poste.getGuid())))
+                .flatMap(posteResult -> Observable.just(posteResult.getPoste()))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(listeStages -> Observable.just(listeStages.getPostesList()))
+                .toList()
                 .doOnNext(postesSynchronizer::synchronize)
                 .subscribe(new Observer<List<Poste>>() {
                     @Override
@@ -101,6 +108,7 @@ public class StagesPresenter implements IStagesPresenter {
                     @Override
                     public void onError(Throwable e) {
                         Log.d("PostulationPresenter", "e:" + e);
+                        e.printStackTrace();
                         stagesView.hideProgress();
                     }
 
@@ -118,11 +126,8 @@ public class StagesPresenter implements IStagesPresenter {
     public void onItemClicked(int position) {
 
 
-
-
         stagesView.showMessage(String.format("Position %d clicked", position + 1));
     }
-
 
 
 }

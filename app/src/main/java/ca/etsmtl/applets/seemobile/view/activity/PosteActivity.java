@@ -30,7 +30,6 @@ public class PosteActivity extends AppCompatActivity implements PosteView {
     @Bind(R.id.progressbar_details_poste)
     ProgressBar progressBar;
 
-
     private PostePresenter presenter;
 
     @Override
