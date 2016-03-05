@@ -41,7 +41,6 @@ public class PostePresenter implements IPostePresenter {
     @Inject
     DatabaseHelper databaseHelper;
     private Dao<Poste, ?> posteDao;
-    private Synchronizer<Poste> posteSynchronizer;
 
     private String guidPoste;
 
@@ -65,7 +64,6 @@ public class PostePresenter implements IPostePresenter {
             e.printStackTrace();
         }
 
-        posteSynchronizer = new Synchronizer<>(posteDao);
 
         posteView.showProgress();
         seeService.getApi()
@@ -81,12 +79,8 @@ public class PostePresenter implements IPostePresenter {
                 .retry(1)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(posteResult ->
-                        Observable.just(new ArrayList<Poste>() {{
-                            add(posteResult.getPoste());
-                        }}))
-                .doOnNext(posteSynchronizer::synchronize)
-                .subscribe(new Observer<List<Poste>>() {
+                .flatMap(posteResult -> Observable.just(posteResult.getPoste()))
+                .subscribe(new Observer<Poste>() {
                     @Override
                     public void onCompleted() {
                         posteView.hideProgress();
@@ -94,12 +88,12 @@ public class PostePresenter implements IPostePresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("PostulationPresenter", "e:" + e);
+                        Log.d("PostePresenter", "e:" + e);
                     }
 
                     @Override
-                    public void onNext(List<Poste> postes) {
-                        posteView.setPoste(postes.get(0));
+                    public void onNext(Poste poste) {
+                        posteView.setPoste(poste);
                     }
                 });
 
