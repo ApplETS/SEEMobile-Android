@@ -153,14 +153,14 @@
             fab:fab_colorPressed="@color/white_pressed"
             fab:fab_title="Postuler" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_icon="@drawable/ic_help"
-            fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_title="Question sur le poste" />
+        <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
+            <!--android:id="@+id/action_question"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--fab:fab_icon="@drawable/ic_help"-->
+            <!--fab:fab_colorNormal="@color/white"-->
+            <!--fab:fab_colorPressed="@color/white_pressed"-->
+            <!--fab:fab_title="Question sur le poste" />-->
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_site_web"

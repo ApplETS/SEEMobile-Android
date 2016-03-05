@@ -40,8 +40,8 @@ public class InformationsPosteFragment extends Fragment implements PosteView {
 
     @Bind(R.id.action_postuler)
     FloatingActionButton fabActionPostuler;
-    @Bind(R.id.action_question)
-    FloatingActionButton fabActionQuestion;
+//    @Bind(R.id.action_question)
+//    FloatingActionButton fabActionQuestion;
     @Bind(R.id.action_site_web)
     FloatingActionButton fabActionSiteWeb;
     @Bind(R.id.action_localiser)
@@ -103,15 +103,29 @@ public class InformationsPosteFragment extends Fragment implements PosteView {
 
             }
         });
-        fabActionQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        fabActionQuestion.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto",poste.getCoordonnateur(), null));
+//                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+//                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+//                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+//            }
+//        });
         fabActionSiteWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String url = poste.getSiteWebEmployeur();
+                if(!url.startsWith("www.")&& !url.startsWith("http://")){
+                    url = "www."+url;
+                }
+                if(!url.startsWith("http://")){
+                    url = "http://"+url;
+                }
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
 
             }
         });
