@@ -9,8 +9,13 @@
 
         <item
             android:id="@+id/nav_liste_stages"
-
             android:title="@string/liste_stages" />
+
+        <item
+            android:id="@+id/nav_liste_entrevues"
+            android:title="@string/liste_entrevues" />
+
+
         <!--<item-->
             <!--android:id="@+id/nav_manage_module_fragment"-->
             <!--android:icon="@drawable/ic_marker"-->

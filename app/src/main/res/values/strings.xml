@@ -17,5 +17,6 @@
 
     <string name="employeur_poste">%1$s \n(%2$s entreprise)</string>
     <string name="duree_poste">%1$s mois</string>
+    <string name="liste_entrevues">Entrevues</string>
 
 </resources>

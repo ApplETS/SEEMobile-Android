@@ -1,7 +1,5 @@
 package ca.etsmtl.applets.seemobile.view.fragment;
 
-import android.accounts.AccountManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,58 +14,53 @@ import com.j256.ormlite.dao.Dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.R;
+import ca.etsmtl.applets.seemobile.model.Entrevue;
 import ca.etsmtl.applets.seemobile.model.Poste;
-import ca.etsmtl.applets.seemobile.model.Postulation;
+import ca.etsmtl.applets.seemobile.presenter.EntrevuesPresenter;
 import ca.etsmtl.applets.seemobile.presenter.StagesPresenter;
-import ca.etsmtl.applets.seemobile.service.DatabaseHelper;
-import ca.etsmtl.applets.seemobile.service.SEEService;
-import ca.etsmtl.applets.seemobile.utils.AuthenticationInterceptor;
-import ca.etsmtl.applets.seemobile.utils.Constants;
 import ca.etsmtl.applets.seemobile.utils.Synchronizer;
+import ca.etsmtl.applets.seemobile.view.EntrevuesView;
 import ca.etsmtl.applets.seemobile.view.StagesView;
-import ca.etsmtl.applets.seemobile.view.activity.PosteActivity;
+import ca.etsmtl.applets.seemobile.view.adapter.EntrevuesAdapter;
 import ca.etsmtl.applets.seemobile.view.adapter.PosteAdapter;
 
 /**
  * Created by gnut3ll4 on 22/12/15.
  */
-public class StagesFragment extends Fragment implements StagesView, AdapterView.OnItemClickListener {
+public class EntrevuesFragment extends Fragment implements EntrevuesView, AdapterView.OnItemClickListener {
 
-    private Dao<Poste, ?> posteDao;
-    private Synchronizer<Poste> posteSynchronizer;
+//    private Dao<Poste, ?> posteDao;
+//    private Synchronizer<Poste> posteSynchronizer;
+    @Bind(R.id.listview_entrevues)
+    ListView listViewEntrevues;
 
-    @Bind(R.id.listview_stages)
-    ListView listViewPostes;
-
-    @Bind(R.id.progressbar_stages)
+    @Bind(R.id.progressbar)
     ProgressBar progressBar;
 
-    StagesPresenter presenter;
+    EntrevuesPresenter presenter;
 
-    private PosteAdapter posteAdapter;
-    private List<Poste> postes = new ArrayList<>();
+    private EntrevuesAdapter entrevuesAdapter;
+    private List<Entrevue> entrevues = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_stages, container, false);
+        View view = inflater.inflate(R.layout.fragment_entrevues, container, false);
 
         ButterKnife.bind(this, view);
-        listViewPostes = (ListView) view.findViewById(R.id.listview_stages);
 
-        posteAdapter = new PosteAdapter(view.getContext(), R.layout.row_poste, postes);
+        entrevuesAdapter = new EntrevuesAdapter(view.getContext(), R.layout.row_entrevue, entrevues);
 
-        listViewPostes.setAdapter(posteAdapter);
+        listViewEntrevues.setAdapter(entrevuesAdapter);
 
-        presenter = new StagesPresenter(this);
+        presenter = new EntrevuesPresenter(this);
 
-        listViewPostes.setOnItemClickListener(this);
+        listViewEntrevues.setOnItemClickListener(this);
 
 
         return view;
@@ -82,10 +75,7 @@ public class StagesFragment extends Fragment implements StagesView, AdapterView.
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         presenter.onItemClicked(position);
-        Intent intent = new Intent(getActivity(), PosteActivity.class);
-        Poste item = posteAdapter.getItem(position);
-        intent.putExtra(Constants.GUID_POSTE, item.getGuid());
-        startActivity(intent);
+
     }
 
     @Override
@@ -101,16 +91,16 @@ public class StagesFragment extends Fragment implements StagesView, AdapterView.
     }
 
     @Override
-    public void setItems(List<Poste> postes) {
-        posteAdapter.clear();
-        posteAdapter.addAll(postes);
+    public void setItems(List<Entrevue> entrevues) {
+        entrevuesAdapter.clear();
+        entrevuesAdapter.addAll(entrevues);
 //        adapter = new PostulationAdapter(getActivity(), R.layout.row_postulation, postulations);
 //        listView.setAdapter(adapter);
-        posteAdapter.notifyDataSetChanged();
+        entrevuesAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showMessage(String message) {
-//        Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+
     }
 }

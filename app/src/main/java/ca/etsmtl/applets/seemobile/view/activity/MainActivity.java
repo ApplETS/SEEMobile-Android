@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import ca.etsmtl.applets.seemobile.Injector;
 import ca.etsmtl.applets.seemobile.R;
 import ca.etsmtl.applets.seemobile.utils.Constants;
+import ca.etsmtl.applets.seemobile.view.fragment.EntrevuesFragment;
 import ca.etsmtl.applets.seemobile.view.fragment.PostulationFragment;
 import ca.etsmtl.applets.seemobile.view.fragment.StagesFragment;
 
@@ -126,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.nav_liste_stages:
                 fragmentClass = StagesFragment.class;
+                break;
+
+            case R.id.nav_liste_entrevues:
+                fragmentClass = EntrevuesFragment.class;
                 break;
 
             default:

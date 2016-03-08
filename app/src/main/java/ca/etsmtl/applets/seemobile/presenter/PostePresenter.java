@@ -40,8 +40,7 @@ public class PostePresenter implements IPostePresenter {
 
     @Inject
     DatabaseHelper databaseHelper;
-    private Dao<Poste, ?> posteDao;
-    private Synchronizer<Poste> posteSynchronizer;
+    private Dao<Poste, String> posteDao;
 
     private String guidPoste;
 
@@ -61,46 +60,64 @@ public class PostePresenter implements IPostePresenter {
 
         try {
             posteDao = databaseHelper.getDao(Poste.class);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            Poste poste = posteDao.queryForId(guidPoste);
 
-        posteSynchronizer = new Synchronizer<>(posteDao);
-
-        seeService.getApi()
-                .getPoste(new GuidPoste(guidPoste))
-                .flatMap(result -> {
-                    if (result.getErreur().getCode() != 1000) {
-                        accountManager.invalidateAuthToken(Constants.ACCOUNT_TYPE, authenticationInterceptor.getAuthToken());
-                        return Observable.error(new Exception("Request didn't succeed"));
-                    } else {
-                        return Observable.just(result);
-                    }
-                })
-                .retry(1)
+            Observable.just(poste)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(posteResult ->
-                        Observable.just(new ArrayList<Poste>() {{
-                            add(posteResult.getPoste());
-                        }}))
-                .doOnNext(posteSynchronizer::synchronize)
-                .subscribe(new Observer<List<Poste>>() {
+                .subscribe(new Observer<Poste>() {
                     @Override
                     public void onCompleted() {
-
+                        posteView.hideProgress();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("PostulationPresenter", "e:" + e);
+                        posteView.hideProgress();
+                        Log.d("PostePresenter", "e:" + e);
                     }
 
                     @Override
-                    public void onNext(List<Poste> postes) {
-                        posteView.setPoste(postes.get(0));
+                    public void onNext(Poste poste) {
+                        posteView.setPoste(poste);
                     }
                 });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+//        posteView.showProgress();
+//        seeService.getApi()
+//                .getPoste(new GuidPoste(guidPoste))
+//                .flatMap(result -> {
+//                    if (result.getErreur().getCode() != 1000) {
+//                        accountManager.invalidateAuthToken(Constants.ACCOUNT_TYPE, authenticationInterceptor.getAuthToken());
+//                        return Observable.error(new Exception("Request didn't succeed"));
+//                    } else {
+//                        return Observable.just(result);
+//                    }
+//                })
+//                .retry(1)
+//                .flatMap(posteResult -> Observable.just(posteResult.getPoste()))
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<Poste>() {
+//                    @Override
+//                    public void onCompleted() {
+//                        posteView.hideProgress();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        posteView.hideProgress();
+//                        Log.d("PostePresenter", "e:" + e);
+//                    }
+//
+//                    @Override
+//                    public void onNext(Poste poste) {
+//                        posteView.setPoste(poste);
+//                    }
+//                });
 
 
     }
