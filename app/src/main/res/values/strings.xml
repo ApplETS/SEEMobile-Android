@@ -19,4 +19,6 @@
     <string name="duree_poste">%1$s mois</string>
     <string name="liste_entrevues">Entrevues</string>
 
+    <string name="liste_favoris">Favoris</string>
+    <string name="about">A propos</string>
 </resources>

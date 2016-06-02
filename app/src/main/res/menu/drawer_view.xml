@@ -16,6 +16,13 @@
             android:title="@string/liste_entrevues" />
 
 
+        <item
+            android:id="@+id/nav_liste_favoris"
+            android:title="@string/liste_favoris" />
+        <item
+            android:id="@+id/nav_about"
+            android:title="@string/about" />
+
         <!--<item-->
             <!--android:id="@+id/nav_manage_module_fragment"-->
             <!--android:icon="@drawable/ic_marker"-->
