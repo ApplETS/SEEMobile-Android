@@ -21,4 +21,4 @@ Nous allons devoir modifier notre machine virtuelle pour installer les Google Ap
       - [Google Apps for Android 4.2](https://www.google.ca/search?q=gapps-jb-20130812-signed.zip)
       - [Google Apps for Android 4.1](https://www.google.ca/search?q=gapps-jb-20121011-signed.zip)
 
-3. Suivez la procédure indiquée [ici](https://gist.github.com/wbroek/9321145)
+3. Suivez la procédure indiquée [ici](https://gist.github.com/gnut3ll4/f1ece0399084c2ccab2ff19bbc686317)
